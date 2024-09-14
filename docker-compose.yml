@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  portfolio-service:
+    build:
+      context: ./services/portfolio-service
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/db1
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db1
+    ports:
+      - "5432:5432"

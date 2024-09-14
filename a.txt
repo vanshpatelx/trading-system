@@ -1,0 +1,118 @@
+** API Design
+
+Portfolio
+/portfolio => Web socket Connections
+parms - userID
+DB - PostgreSQL -> To get information about how much stocks and Quantity
+
+=> Suppose in start, we go to DB and check amout of stocks and Quantity, then we handhsake to stock price server, we want this prices, they send, if here we exit then automatically turn off.
+=> Even anything change in DB, means know by Order service, Which send request to portfolio, that reset function again
+
+
+
+
+
+### **Project Summary: Stock Trading Microservices System**
+
+#### **Objective:**
+You are building a **microservices-based stock trading system** that handles thousands of users, each with unique trading conditions. The system will include essential services for managing stocks, trades, portfolios, users, and notifications. It will also integrate tools such as RabbitMQ, different databases (e.g., MongoDB), and utilize NGINX as a **load balancer and reverse proxy**.
+
+---
+
+#### **Monorepo Architecture:**
+The system follows a **monorepo architecture**, housing all microservices in a single repository for streamlined development, testing, and deployment.
+
+#### **Core Microservices:**
+1. **Trader Service**: Manages trade operations and user interactions for placing orders.
+2. **Stock Service**: Handles stock data and provides stock-related information.
+3. **Portfolio Service**: Manages user portfolios, including assets and their valuations.
+4. **User Service**: Handles user data, including authentication, registration, and profile management.
+5. **Order Service**: Manages orders, ensuring transactions are processed and executed correctly.
+6. **Auto Service**: Automates trading or user-related actions, such as recurring orders.
+7. **Notification Service**: Manages sending notifications to users about trade statuses, alerts, etc.
+
+---
+
+#### **Technology Stack:**
+
+- **Backend Services**: 
+  - Each service is written in **TypeScript (TS)** for clear type definitions and scalability.
+  - Rust is being used to develop performance-critical components (e.g., exchange system).
+  
+- **Databases**:
+  - Multiple databases are used across services to store different types of data, ensuring scalability and optimized access.
+
+- **Message Broker**: 
+  - **RabbitMQ** is used for inter-service communication, ensuring reliable messaging between services (e.g., Trader Service sending data to Portfolio Service).
+
+- **NGINX**:
+  - Functions as a **load balancer** and **reverse proxy**, efficiently routing requests across services and ensuring smooth scaling.
+
+---
+
+#### **Testing Strategy:**
+Comprehensive testing has been incorporated across services, categorized into:
+
+1. **Unit Tests**: Test individual components or functions within a service.
+2. **Integration Tests**: Ensure different parts of a service, including databases and APIs, work together correctly.
+3. **End-to-End (E2E) Tests**: Test full user workflows across multiple services, ensuring the entire system works seamlessly.
+
+Testing frameworks like **Mocha**, **Chai**, and **Supertest** are employed, with tests structured in their respective directories under each service.
+
+---
+
+#### **Kubernetes & Docker:**
+- Each service is containerized using **Docker**, and the system is deployed using **Kubernetes**. 
+- Kubernetes ensures the microservices scale efficiently and manage container lifecycles. Configurations for service deployments, scaling, and networking are handled using YAML files in the `/k8s` directory.
+
+---
+
+#### **Deployment and Orchestration:**
+- A **Docker Compose** file is included for local orchestration and running the system during development.
+- A `/scripts` directory contains deployment scripts (`deploy.sh`) to manage service deployments and updates.
+  
+---
+
+#### **Additional Features:**
+- **Monitoring & Observability**: Planned integration of tools like **Grafana** and **Prometheus** for system monitoring.
+- **Istio**: To be used for service mesh functionality, allowing advanced traffic control, security, and monitoring across microservices.
+
+---
+
+### **Key Outcomes:**
+The system will provide:
+- **Scalability**: Capable of handling thousands of users with different trading strategies.
+- **Reliability**: Distributed architecture ensures no single point of failure.
+- **Performance**: High throughput with optimized services for trade execution, stock management, and automated trading.
+  
+With this structure, you are building a powerful stock trading platform that will efficiently handle complex user conditions while remaining scalable and maintainable.
+
+Let me know if you'd like to add or adjust any details!
+
+
+
+
+
+
+Stock/
+├── servers/
+│   ├── services/
+│   │   ├── trader-service/
+│   │   ├── stock-service/
+│   │   ├── portfolio-service/
+│   │   ├── user-service/
+│   │   ├── order-service/
+│   │   ├── auto-service/
+│   │   └── notifications-service/
+├── DBs-PubSubs/
+│   ├── databases/
+│   └── pub-subs/
+├── exchange/
+│   └── rust-exchange-project/
+├── libs/
+│   ├── logging/
+│   ├── utils/
+│   └── common/
+└── infra/
+    ├── ci-cd/
+    └── deployment/
